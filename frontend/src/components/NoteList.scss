@@ -1,0 +1,100 @@
+@import "../Colors.scss";
+
+.NoteList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  gap: 15px;
+
+  .NoteForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .NoteLabel {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      font-family: "Nunito Sans", sans-serif;
+      color: black;
+    }
+    .Title {
+      width: 300px;
+      border-radius: 4px;
+      padding: 10px;
+    }
+    .Content {
+      border: none;
+      overflow: none;
+      outline: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      resize: none;
+      width: 300px;
+      border-radius: 4px;
+      padding: 10px;
+
+      .Content::placeholder {
+        font-family: "Nunito Sans", sans-serif;
+        padding: 14px;
+      }
+    }
+
+    .ButtonContainer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      .Button {
+        background-color: $tangerine;
+        font-family: "Nunito Sans", sans-serif;
+        border: none;
+        padding: 0;
+        width: 60px;
+        height: 30px;
+        border-radius: 4px;
+        outline: none;
+      }
+    }
+  }
+
+  .Notes {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    .Note {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: black;
+      background-color: $yellow;
+      width: 300px;
+      border-radius: 5px;
+      gap: 5px;
+      padding: 15px;
+      h1 {
+        font-size: 20px;
+        font-family: "Roboto Mono", sans-serif;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+}
