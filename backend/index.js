@@ -34,6 +34,19 @@ app.post("/api/notes", async (request, response) => {
   }
 })
 
+app.delete("/api/notes/:id", async (request, response) => {
+  const noteId = request.params.id
+  const deleteQuery = "DELETE FROM notes WHERE id = $1"
+  const values = [noteId]
+
+  try {
+    await client.query(deleteQuery, values)
+    response.status(204).send()
+  } catch (error) {
+    console.error("Error deleting the note:", error)
+    response.status(500).send("Error deleting the note: " + error.message)
+  }
+})
 app.use(express.static(path.join(path.resolve(), "public")))
 
 app.listen(port, () => {

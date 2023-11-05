@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTrash } from "@fortawesome/free-solid-svg-icons"
 import "./NoteList.scss"
 
 function Notelist() {
@@ -34,28 +36,41 @@ function Notelist() {
     }
   }
 
+  const handleDeleteNote = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this note?"
+    )
+    if (!confirmDelete) {
+      return // User canceled the delete operation
+    }
+
+    try {
+      await axios.delete(`/api/notes/${id}`)
+      const updatedNotes = notes.filter((note) => note.id !== id)
+      setNotes(updatedNotes)
+    } catch (error) {
+      console.error("Error deleting the note:", error)
+    }
+  }
+
   return (
     <div className="NoteList">
       <form className="NoteForm" onSubmit={handleFormSubmit}>
-        <section>
-          <input
-            className="Title"
-            placeholder="Add title"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </section>
-        <section>
-          <textarea
-            className="Content"
-            placeholder="Write something!"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-          />
-        </section>
+        <input
+          className="Title"
+          placeholder="Add title"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+        <textarea
+          className="Content"
+          placeholder="Write something!"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          required
+        />
         <div className="ButtonContainer">
           <button className="Button" type="submit">
             Save
@@ -65,7 +80,15 @@ function Notelist() {
       <div className="Notes">
         {notes.map((note) => (
           <div className="Note" key={note.id}>
-            <h1>{note.title}</h1>
+            <div className="NoteHeader">
+              <h1>{note.title}</h1>
+              <div
+                className="IconButton"
+                onClick={() => handleDeleteNote(note.id)}
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </div>
+            </div>
             <p>{note.content}</p>
           </div>
         ))}

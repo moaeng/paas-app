@@ -15,9 +15,24 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  gap: 10px;
+
   .Heading {
     color: $yellow;
     font-family: "Roboto Mono";
     padding: 15px;
   }
+}
+
+.Button {
+  background-color: $tangerine;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+  color: $darkblue;
+  border: none;
+  padding: 0;
+  width: 60px;
+  height: 30px;
+  border-radius: 4px;
+  outline: none;
 }
