@@ -47,6 +47,22 @@ app.delete("/api/notes/:id", async (request, response) => {
     response.status(500).send("Error deleting the note: " + error.message)
   }
 })
+
+app.put("/api/notes/:id", async (request, response) => {
+  const noteId = request.params.id
+  const { title, content } = request.body
+  const updateQuery = "UPDATE notes SET title = $1, content = $2 WHERE id = $3"
+  const values = [title, content, noteId]
+
+  try {
+    await client.query(updateQuery, values)
+    response.status(200).send("Note updated successfully")
+  } catch (error) {
+    console.error("Error updating the note:", error)
+    response.status(500).send("Error updating the note: " + error.message)
+  }
+})
+
 app.use(express.static(path.join(path.resolve(), "public")))
 
 app.listen(port, () => {
