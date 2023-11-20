@@ -17,11 +17,13 @@ const app = express(),
 app.use(bodyParser.json())
 
 app.get("/api", async (_request, response) => {
+  console.log("GET request received")
   const { rows } = await client.query("SELECT * FROM notes")
   response.send(rows)
 })
 
 app.post("/api/notes", async (request, response) => {
+  console.log("POST request received")
   const { title, content } = request.body
   const insertQuery = "INSERT INTO notes (title, content) VALUES ($1, $2)"
   const values = [title, content]
@@ -35,6 +37,7 @@ app.post("/api/notes", async (request, response) => {
 })
 
 app.delete("/api/notes/:id", async (request, response) => {
+  console.log("DELETE request received")
   const noteId = request.params.id
   const deleteQuery = "DELETE FROM notes WHERE id = $1"
   const values = [noteId]
@@ -49,6 +52,7 @@ app.delete("/api/notes/:id", async (request, response) => {
 })
 
 app.put("/api/notes/:id", async (request, response) => {
+  console.log("PUT request received")
   const noteId = request.params.id
   const { title, content } = request.body
   const updateQuery = "UPDATE notes SET title = $1, content = $2 WHERE id = $3"
